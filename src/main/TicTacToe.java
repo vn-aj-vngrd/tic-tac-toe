@@ -21,7 +21,6 @@ public class TicTacToe {
                 row = scanner.nextInt() - 1;
                 col = scanner.nextInt() - 1;
             } while (!game.placeMark(row, col));
-            game.changePlayer();
 
             if (checker.checkForWin(game.getBoard()) || checker.checkBoardFull(game.getBoard())) {
                 if (checker.checkForWin(game.getBoard())) {
@@ -42,6 +41,8 @@ public class TicTacToe {
                     break;
                 }
             }
+
+            game.changePlayer();
 
         } while (true);
 
