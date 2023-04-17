@@ -24,10 +24,8 @@ public class TicTacToeTest {
     }
 
     @Test
-    public void testFullGameSimulation() {
-        game = new Game();
-        checker = new Checker();
-
+    public void testWherePlayerXWins() {
+        game.initializeBoard();
         // Simulate a game where player X wins
         game.placeMark(0, 0);
         game.changePlayer();
@@ -46,7 +44,37 @@ public class TicTacToeTest {
 
         assertTrue(checker.checkForWin(game.getBoard()));
         assertEquals('O', game.getCurrentPlayerMark());
+    }
 
+    @Test
+    public void testWherePlayerYWins() {
+        game.initializeBoard();
+        // Simulate a game where player X wins
+        game.placeMark(0, 0);
+        game.changePlayer();
+
+        game.placeMark(1, 0);
+        game.changePlayer();
+
+        game.placeMark(0, 1);
+        game.changePlayer();
+
+        game.placeMark(1, 1);
+        game.changePlayer();
+
+        game.placeMark(2, 1);
+        game.changePlayer();
+
+        game.placeMark(1, 2);
+        game.changePlayer();
+
+        assertTrue(checker.checkForWin(game.getBoard()));
+        assertEquals('X', game.getCurrentPlayerMark());
+    }
+
+    @Test
+    public void testWhereGameIsTied() {
+        game.initializeBoard();
         // Simulate a game where it's a tie
         game.placeMark(0, 0);
         game.changePlayer();
