@@ -3,6 +3,8 @@ package test.lib;
 import main.lib.Game;
 import org.junit.Before;
 import static org.junit.Assert.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import org.junit.Test;
 
 public class GameTest {
@@ -15,7 +17,6 @@ public class GameTest {
 
     @Test
     public void testInitializeBoard() {
-        game = new Game();
         game.initializeBoard();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -25,8 +26,26 @@ public class GameTest {
     }
 
     @Test
+    public void testGetCurrentPlayerMark() {
+        game.initializeBoard();
+        assertEquals('X', game.getCurrentPlayerMark());
+        game.changePlayer();
+        assertEquals('O', game.getCurrentPlayerMark());
+    }
+
+    @Test
+    public void testGetBoard() {
+        game.initializeBoard();
+        game.placeMark(0, 0);
+        game.changePlayer();
+        game.placeMark(1, 1);
+        char[][] expectedBoard = { { 'X', '-', '-' }, { '-', 'O', '-' }, { '-', '-', '-' } };
+        assertArrayEquals(expectedBoard, game.getBoard());
+    }
+
+    @Test
     public void testChangePlayer() {
-        game = new Game();
+        game.initializeBoard();
         assertEquals('X', game.getCurrentPlayerMark());
         game.changePlayer();
         assertEquals('O', game.getCurrentPlayerMark());
@@ -36,7 +55,7 @@ public class GameTest {
 
     @Test
     public void testPlaceMark() {
-        game = new Game();
+        game.initializeBoard();
         assertTrue(game.placeMark(0, 0));
         assertFalse(game.placeMark(0, 0));
         assertFalse(game.placeMark(3, 0));
@@ -45,7 +64,7 @@ public class GameTest {
 
     @Test
     public void testPlaceMarkOutOfRange() {
-        game = new Game();
+        game.initializeBoard();
 
         assertFalse(game.placeMark(-1, 0));
         assertFalse(game.placeMark(3, 0));
@@ -55,9 +74,32 @@ public class GameTest {
 
     @Test
     public void testPlaceMarkAlreadyOccupied() {
-        game = new Game();
+        game.initializeBoard();
 
         assertTrue(game.placeMark(0, 0));
         assertFalse(game.placeMark(0, 0));
     }
+
+    @Test
+    public void testPrintHeader() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        game.printHeader();
+        assertEquals("\033\143Tic-Tac-Toe Game\n\n", outputStream.toString());
+    }
+
+    @Test
+    public void testPrintBoard() {
+        game.initializeBoard();
+
+        game.placeMark(0, 0);
+        game.changePlayer();
+        game.placeMark(1, 1);
+
+        char board[][] = game.getBoard();
+        assertTrue(board[0][0] == 'X' || board[1][1] == 'O' || board[2][2] == '-');
+
+    }
+
 }

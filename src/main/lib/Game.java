@@ -48,8 +48,7 @@ public class Game {
     }
 
     public void printHeader() {
-        System.out.print("\033\143");
-        System.out.println("Tic-Tac-Toe Game\n");
+        System.out.print("\033\143Tic-Tac-Toe Game\n\n");
     }
 
     public void printBoard() {
@@ -73,5 +72,4 @@ public class Game {
         }
         System.out.println("  \033[1;37m└───┴───┴───┘\033[0m");
     }
-
 }
