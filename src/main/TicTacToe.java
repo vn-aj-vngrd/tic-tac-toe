@@ -8,10 +8,11 @@ public class TicTacToe {
         Scanner scanner = new Scanner(System.in);
         Game game = new Game();
         Checker checker = new Checker();
+        Print print = new Print();
 
         do {
-            game.printHeader();
-            game.printBoard();
+            print.printHeader();
+            print.printBoard(game.getBoard());
 
             int row, col;
             do {

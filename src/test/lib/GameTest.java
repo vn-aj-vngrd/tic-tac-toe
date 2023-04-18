@@ -3,8 +3,6 @@ package test.lib;
 import main.lib.Game;
 import org.junit.Before;
 import static org.junit.Assert.*;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import org.junit.Test;
 
 public class GameTest {
@@ -79,27 +77,4 @@ public class GameTest {
         assertTrue(game.placeMark(0, 0));
         assertFalse(game.placeMark(0, 0));
     }
-
-    @Test
-    public void testPrintHeader() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-
-        game.printHeader();
-        assertEquals("\033\143Tic-Tac-Toe Game\n\n", outputStream.toString());
-    }
-
-    @Test
-    public void testPrintBoard() {
-        game.initializeBoard();
-
-        game.placeMark(0, 0);
-        game.changePlayer();
-        game.placeMark(1, 1);
-
-        char board[][] = game.getBoard();
-        assertTrue(board[0][0] == 'X' || board[1][1] == 'O' || board[2][2] == '-');
-
-    }
-
 }
